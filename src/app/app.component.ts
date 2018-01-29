@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { Todo } from './todo.model';
+import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 
 @Component({
   selector: 'app-root',
@@ -7,16 +9,22 @@ import { Todo } from './todo.model';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  todos: Todo[] = new Array();
+  public todos: Observable<Todo[]>;
+
+  constructor(private store: Store<any>) {
+    this.todos = store.select('todos');
+  }
 
   addTodo(item) {
-    this.todos.push({ value: item.value, completed: false });
+    this.store.dispatch({
+      type: 'ADD_TODO',
+      payload: { value: item.value, completed: false }
+    });
   }
   complete(item) {
-    this.todos.forEach(todo => {
-      if (todo === item) {
-        todo.completed = !todo.completed;
-      }
+    this.store.dispatch({
+      type: 'COMPLETE_TODO',
+      payload: { value: item.value }
     });
   }
 }
