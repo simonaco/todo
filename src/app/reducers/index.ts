@@ -15,13 +15,13 @@ export interface State {
 
 //actions
 export type TodoAdded = { type: 'ADD_TODO'; payload: Todo };
-export type TodoCompleted = { type: 'COMPLETE_TODO'; payload: Todo };
+export type TodoCompleted = { type: 'TOGGLE_TODO'; payload: Todo };
 
 export const reducers = (state: Todo[] = [], action: Action) => {
   switch (action.type) {
     case 'ADD_TODO':
       return [...state, action.payload];
-    case 'COMPLETE_TODO':
+    case 'TOGGLE_TODO':
       return state.map(
         todo =>
           todo.value === action.payload.value

@@ -23,7 +23,7 @@ export class AppComponent {
   }
   complete(item) {
     this.store.dispatch({
-      type: 'COMPLETE_TODO',
+      type: 'TOGGLE_TODO',
       payload: { value: item.value }
     });
   }
